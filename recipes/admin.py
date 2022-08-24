@@ -5,3 +5,7 @@ from django.contrib import admin
 from recipes.models import Recipe
 
 admin.site.register(Recipe)
+
+from recipes.models import Measure
+
+admin.site.register(Measure)
