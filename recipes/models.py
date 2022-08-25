@@ -20,7 +20,7 @@ class Recipe(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name + "by" + self.author
+        return self.name + " by " + self.author
 
 
 class Measure(models.Model):
@@ -36,3 +36,27 @@ class FoodItem(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Ingredient(models.Model):
+    amount = models.FloatField()
+    recipe = models.ForeignKey(
+        "Recipe", related_name="ingredients", on_delete=models.CASCADE
+    )
+    measure = models.ForeignKey("Measure", on_delete=models.PROTECT)
+    food = models.ForeignKey("FoodItem", on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.food.name
+
+
+class Step(models.Model):
+    recipe = models.ForeignKey(
+        "Recipe", related_name="steps", on_delete=models.CASCADE
+    )
+    order = models.PositiveSmallIntegerField()
+    directions = models.CharField(max_length=300)
+
+    def __str__(self):
+        str_order = str(self.order)
+        return "step " + str_order
