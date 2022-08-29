@@ -57,8 +57,12 @@ class Step(models.Model):
     )
     order = models.PositiveSmallIntegerField()
     directions = models.CharField(max_length=300)
-    food_items = models.ManyToManyField("FoodItem", null=True, blank=True)
+    food_items = models.ManyToManyField("FoodItem", related_name="steps", null=True, blank=True)
 
     def __str__(self):
         str_order = str(self.order)
         return f"{self.recipe.name} step {str_order}"
+
+
+#step.food_items = QuerySet[FoodItem] (this is not real code)
+#food_item.steps = QuerySet[Step]
