@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 
 from recipes.forms import RatingForm
@@ -101,3 +101,9 @@ class RecipeUpdateView(UpdateView):
     template_name = "recipes/edit.html"
     fields = ["name", "author", "description", "image"]
     success_url = reverse_lazy("recipes_list")
+
+
+class RecipeDeleteView(DeleteView):
+    model = Recipe
+    template_name = "recipes/delete.html"
+    succes_url = reverse_lazy("recipes_list")
